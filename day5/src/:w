@@ -1,0 +1,83 @@
+use std::error::Error;
+use std::fs::File;
+use std::path::Path;
+use::std::io::prelude::*;
+
+pub struct Stack <'a> {
+    pub crates: Vec<&'a str>    // Slices must live at least as long as instance
+}
+
+impl Stack {
+    pub fn new() -> Stack {
+        Stack{crates: Vec::new()}
+    }
+    pub fn push(self, s: &str) -> () {
+        self.crates.push(s);
+    }
+
+    pub fn peek(self) -> Result<String, ()> {
+        if self.crates.len() == 0 {
+        }
+        Ok(self.crates[self.crates.len()-1])
+    }
+
+    pub fn pop(self) -> Result<&str, Box<Error>> {
+
+    }
+}
+
+fn parse_stacks(lines: &Vec<String>) -> Vec<Stack> {
+    let mut stacks_v: Vec<Stack> = Vec::new();
+
+    // Read lines in reverse order, pushing into appropriate stacks
+    let mut stack_lines: Vec<&str> = Vec::new();
+    for line in lines {
+        if line.contains("1") {
+            break;
+        } else {
+            assert_eq!(line.len(),35);
+            line.chars() 
+        }
+    }
+
+    stacks_v
+}
+
+fn rearrange(operation_lines: &Vec<String>, mut stacks_v: &Vec<Stack>) {
+
+}
+
+fn init_contents_from_input() -> String {
+    // Extract content from input file
+    let mut file = File::open(Path::new("../input")).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+
+    contents
+}
+
+fn run() {
+    let static content= init_contents_from_input();
+
+    // Initialize stacks from input's header
+    let stacks_v: Vec<Stack> = parse_stacks(&lines);
+    
+    // Rearrange stacks according to "move X ..." instructions in remaining lines
+    rearrange(&lines, &stacks_v);
+    
+    // Print tops of each stack
+    let mut tops: String = String::new();
+    for stack in stacks_v {
+        tops += &stack.peek().unwrap(); 
+    }
+    println!("Part 1: {}", tops);
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        let result = 2 + 2;
+        assert_eq!(result, 4);
+    }
+}
